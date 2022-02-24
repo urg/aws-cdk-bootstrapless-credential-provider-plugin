@@ -1,4 +1,4 @@
-import * as cdk from "aws-cdk";
+import * as cdk from "aws-cdk/lib/plugin";
 import { AwsCdkBootstraplessCredentialProviderSource } from "./aws-cdk-boostrapless-credential-provider-source";
 
 

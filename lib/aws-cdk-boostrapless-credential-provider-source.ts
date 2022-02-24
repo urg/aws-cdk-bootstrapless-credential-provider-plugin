@@ -1,4 +1,4 @@
-import * as cdk from "aws-cdk";
+import * as cdk from "aws-cdk/lib";
 import AWS = require("aws-sdk");
 
 
