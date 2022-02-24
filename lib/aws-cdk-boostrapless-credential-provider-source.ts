@@ -23,6 +23,21 @@ export class AwsCdkBootstraplessCredentialProviderSource implements cdk.Credenti
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public async getProvider(accountId: string, mode: cdk.Mode): Promise<AWS.Credentials> {
         console.debug(`AwsCdkBootstraplessCredentialProviderSource.getProvider(${accountId}, ${mode})`);
-        return new AWS.SharedIniFileCredentials({ profile: accountId });
-    }
+        const {
+            AWS_ACCESS_KEY_ID,
+            AWS_SECRET_ACCESS_KEY,
+            AWS_SESSION_TOKEN,
+            AWS_SHARED_CREDENTIALS_FILE,
+        } = process.env
+
+          if (AWS_SHARED_CREDENTIALS_FILE) {
+            return new AWS.SharedIniFileCredentials({ profile: accountId });
+          }
+
+          return new AWS.Credentials({
+            accessKeyId: AWS_ACCESS_KEY_ID!,
+            secretAccessKey: AWS_SECRET_ACCESS_KEY!,
+            sessionToken: AWS_SESSION_TOKEN,
+          })
+        }
 }
